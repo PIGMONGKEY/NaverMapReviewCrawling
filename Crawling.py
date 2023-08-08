@@ -8,7 +8,7 @@ url = "https://pcmap.place.naver.com/restaurant/1231684190/review/visitor?entry=
 response = requests.get(url)
 print(response.status_code)
 # print(response.text)
-soup = BeautifulSoup(response.text, "html.parser")
+soup = BeautifulSoup(response.content.decode('utf-8', 'ignore'), features="html.parser")
 
 value = soup.find("span", {"class": "zPfVt"})
 print(value)
