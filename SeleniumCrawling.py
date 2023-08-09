@@ -6,20 +6,26 @@ from selenium.webdriver.ie.options import Options
 from bs4 import BeautifulSoup as bs
 import time
 
+try:
+    file = open("./CrawlingTest.txt", "w")
+except:
+    print("There is no such file...")
+    exit(-1)
+
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-driver.maximize_window()
 driver.get(
-    "https://pcmap.place.naver.com/restaurant/1231684190/home?entry=bmp&from=map&fromPanelNum=1&ts=1691500494146")
+    "https://pcmap.place.naver.com/restaurant/1231684190/review?"
+    "entry=bmp&from=map&fromPanelNum=%22%20%5C%20%221&ts=1691500494146")
 
 time.sleep(5)
 
-review_button = driver.find_element(By.XPATH, "/html/body/div[3]/div/div/div/div[5]/div/div/div/div/a[4]/span")
-review_button.click()
-time.sleep(1)
+# review_button = driver.find_element(By.CSS_SELECTOR, "span.veBoZ")
+# review_button.click()
+# time.sleep(1)
 
 while 1:
     try:
-        more_button = driver.find_element(By.XPATH, "/html/body/div[3]/div/div/div/div[7]/div[3]/div[3]/div[2]/a")
+        more_button = driver.find_element(By.CSS_SELECTOR, "a.fvwqf")
         more_button.click()
         time.sleep(1)
     except:
@@ -27,5 +33,7 @@ while 1:
 
 for s in driver.find_elements(By.CSS_SELECTOR, "span.zPfVt"):
     print(s.text)
+    file.write(s.text + "\n\n")
 
+file.close()
 driver.close()
