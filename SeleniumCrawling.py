@@ -3,10 +3,13 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.ie.options import Options
+from bs4 import BeautifulSoup as bs
 import time
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-driver.get("https://pcmap.place.naver.com/restaurant/1231684190/home?entry=bmp&from=map&fromPanelNum=1&ts=1691500494146")
+driver.maximize_window()
+driver.get(
+    "https://pcmap.place.naver.com/restaurant/1231684190/home?entry=bmp&from=map&fromPanelNum=1&ts=1691500494146")
 
 time.sleep(5)
 
@@ -14,8 +17,15 @@ review_button = driver.find_element(By.XPATH, "/html/body/div[3]/div/div/div/div
 review_button.click()
 time.sleep(1)
 
-more_button = driver.find_element(By.XPATH, "/html/body/div[3]/div/div/div/div[7]/div[3]/div[3]/div[2]/a")
-more_button.click()
+while 1:
+    try:
+        more_button = driver.find_element(By.XPATH, "/html/body/div[3]/div/div/div/div[7]/div[3]/div[3]/div[2]/a")
+        more_button.click()
+        time.sleep(1)
+    except:
+        break
 
-time.sleep(50)
+for s in driver.find_elements(By.CSS_SELECTOR, "span.zPfVt"):
+    print(s.text)
 
+driver.close()
