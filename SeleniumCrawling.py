@@ -33,7 +33,8 @@ while 1:
 
 for s in driver.find_elements(By.CSS_SELECTOR, "span.zPfVt"):
     print(s.text)
-    file.write(s.text + "\n\n")
+    if s.text.__len__() > 20:
+        file.write(s.text + "\n\n")
 
 file.close()
 driver.close()
