@@ -6,6 +6,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 
 from NaverMapCrawling.FileIO import *
+from NaverMapCrawling.PageAutomation import *
 
 search_keyword = "의정부 미술도서관"
 
@@ -14,7 +15,7 @@ driver.get(f"https://map.naver.com/v5/search/{search_keyword}/place")
 
 time.sleep(2)
 
-driver.switch_to.frame("searchIframe")
+change_frame(driver, "searchIframe")
 
 try:
     driver.execute_script('document.querySelector("#_pcmap_list_scroll_container > ul > li > div.CHC5F > a '
@@ -25,8 +26,8 @@ except:
 
 time.sleep(3)
 
-driver.switch_to.default_content()
-driver.switch_to.frame("entryIframe")
+change_frame(driver, "entryIframe")
+
 driver.execute_script('document.querySelector("#app-root > div > div > div > div.place_fixed_maintab > div > div > div'
                       ' > div > a:nth-child(3) > span").click()')
 
