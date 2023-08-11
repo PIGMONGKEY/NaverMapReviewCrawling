@@ -5,6 +5,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 
+from NaverMapCrawling.FileIO import *
+
 search_keyword = "의정부 미술도서관"
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
@@ -15,9 +17,11 @@ time.sleep(2)
 driver.switch_to.frame("searchIframe")
 
 try:
-    driver.execute_script('document.querySelector("#_pcmap_list_scroll_container > ul > li > div.CHC5F > a > div").click()')
+    driver.execute_script('document.querySelector("#_pcmap_list_scroll_container > ul > li > div.CHC5F > a '
+                          '> div").click()')
 except:
-    driver.execute_script('document.querySelector("#_pcmap_list_scroll_container > ul > li:nth-child(1) > div.qbGlu > div.ouxiq.icT4K > a:nth-child(1) > div").click()')
+    driver.execute_script('document.querySelector("#_pcmap_list_scroll_container > ul > li:nth-child(1) > '
+                          'div.qbGlu > div.ouxiq.icT4K > a:nth-child(1) > div").click()')
 
 time.sleep(3)
 
@@ -35,12 +39,6 @@ time.sleep(3)
 
 driver.switch_to.default_content()
 
-try:
-    file = open("../Reviews/test.txt", "w")
-except:
-    print("There is no such file...")
-    exit(-1)
-
 while 1:
     try:
         more_button = driver.find_element(By.CSS_SELECTOR, "a.fvwqf")
@@ -49,10 +47,6 @@ while 1:
     except:
         break
 
-for s in driver.find_elements(By.CSS_SELECTOR, "span.zPfVt"):
-    print(s.text)
-    if s.text.__len__() > 0:
-        file.write(s.text + "\n\n")
+review_write(search_keyword, driver)
 
-file.close()
 driver.close()
