@@ -36,7 +36,7 @@ time.sleep(3)
 driver.switch_to.default_content()
 
 try:
-    file = open("../CrawlingTest.txt", "w")
+    file = open("../Reviews/test.txt", "w")
 except:
     print("There is no such file...")
     exit(-1)

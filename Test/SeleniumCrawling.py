@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 import time
 
 try:
-    file = open("../CrawlingTest.txt", "w")
+    file = open("../Reviews/CrawlingTest.txt", "w")
 except:
     print("There is no such file...")
     exit(-1)
