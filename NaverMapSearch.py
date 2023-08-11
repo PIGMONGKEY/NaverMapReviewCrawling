@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 
-search_keyword = "버거킹 의정부용현DT점"
+search_keyword = "의정부 미술도서관"
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 driver.get(f"https://map.naver.com/v5/search/{search_keyword}/place")
@@ -13,7 +13,11 @@ driver.get(f"https://map.naver.com/v5/search/{search_keyword}/place")
 time.sleep(2)
 
 driver.switch_to.frame("searchIframe")
-driver.execute_script('document.querySelector("#_pcmap_list_scroll_container > ul > li > div.CHC5F > a > div").click()')
+
+try:
+    driver.execute_script('document.querySelector("#_pcmap_list_scroll_container > ul > li > div.CHC5F > a > div").click()')
+except:
+    driver.execute_script('document.querySelector("#_pcmap_list_scroll_container > ul > li:nth-child(1) > div.qbGlu > div.ouxiq.icT4K > a:nth-child(1) > div").click()')
 
 time.sleep(3)
 
