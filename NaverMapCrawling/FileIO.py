@@ -13,7 +13,11 @@ def close_file(file):
     file.close()
 
 
-def review_write(driver, file):
+def review_write(brand_name, driver):
+    file = open_file(brand_name)
+
     for s in driver.find_elements(By.CSS_SELECTOR, "span.zPfVt"):
         if s.text >= 5:
             write_file(file, s.text)
+
+    close_file(file)
