@@ -1,4 +1,6 @@
-def open_file(self, brand_name):
+def open_file(brand_name):
     return open(f"../Reviews/{brand_name}", "w")
 
 
+def write_file(file, review):
+    file.write(review + "\n\n")
