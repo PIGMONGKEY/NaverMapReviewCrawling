@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
-file = open("./CrawlingTest.txt", "r")
+file = open("../CrawlingTest.txt", "r")
 
 while True:
     temp_string = file.read(5000)
