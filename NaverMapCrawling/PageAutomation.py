@@ -5,17 +5,21 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 
+# 설치된 크롬 드라이버를 불러온 후 리턴
 def driver_init():
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.maximize_window()
     return driver
 
 
+# Selenium이 작동할 창 변경(iframe, 등)
 def change_frame(driver, frame_id):
     driver.switch_to.default_content()
     driver.switch_to.frame(frame_id)
 
 
+# 네이버 지도에서 검색어로 검색 후 첫 번째 검색 결과로 진입하여 장소 코드 추출, 리턴
+# 검색어에 따라 CSS SELECTOR가 변경되는 듯 함...수정 필요
 def get_place_code(driver, search_url):
     one_result_click_js = 'document.querySelector("#_pcmap_list_scroll_container > ul > li > div.CHC5F > a ' \
                           '> div").click()'
@@ -40,6 +44,7 @@ def get_place_code(driver, search_url):
     return driver.current_url.split("/")[-1].split("?")[0]
 
 
+# 장소 코드를 이용해서 장소 naver place 리뷰 페이지로 이동
 def move_to_review_page(driver, place_code):
     place_url = f"https://pcmap.place.naver.com/restaurant/{place_code}/review/visitor"
 
@@ -47,6 +52,7 @@ def move_to_review_page(driver, place_code):
     time.sleep(3)
 
 
+# 더보기 버튼을 끝까지 누름
 def click_more_button(driver):
     more_button_css = "a.fvwqf"
 
