@@ -8,17 +8,29 @@ import time
 from NaverMapCrawling.FileIO import *
 from NaverMapCrawling.PageAutomation import *
 
-search_keyword = "의정부 미술도서관"
-search_url = f"https://map.naver.com/v5/search/{search_keyword}/place"
+if __name__ == '__main__':
 
-driver = driver_init()
-place_code = get_place_code(driver, search_url)
-move_to_review_page(driver, place_code)
+    # 상호명 입력 프로세스 미완성
+    #############################
+    search_keyword = "의정부음악도서관"
+    search_url = f"https://map.naver.com/v5/search/{search_keyword}/place"
+    #############################
 
-driver.switch_to.default_content()
+    # Chrome Driver Setting
+    driver = driver_init()
 
-click_more_button(driver)
+    # Selenium 을 이용한 페이지 이동을 통해 장소 코드 return
+    place_code = get_place_code(driver, search_url)
 
-review_write(search_keyword, driver)
+    # 장소 코드를 통하여 장소 naver place 리뷰 페이지로 이동
+    move_to_review_page(driver, place_code)
 
-driver.close()
+    driver.switch_to.default_content()
+
+    # 리뷰 더보기 버튼 끝까지 클릭
+    click_more_button(driver)
+
+    # 모든 리뷰 긁어서 txt 파일로 저장
+    review_write(search_keyword, driver)
+
+    driver.close()
