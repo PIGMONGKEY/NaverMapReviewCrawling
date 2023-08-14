@@ -19,7 +19,6 @@ def change_frame(driver, frame_id):
 
 
 # 네이버 지도에서 검색어로 검색 후 첫 번째 검색 결과로 진입하여 장소 코드 추출, 리턴
-# 검색어에 따라 CSS SELECTOR가 변경되는 듯 함...수정 필요
 def get_place_code(driver, search_url):
     one_result_click_js = 'document.querySelector("#_pcmap_list_scroll_container > ul > li > div.CHC5F > a ' \
                           '> div").click()'
