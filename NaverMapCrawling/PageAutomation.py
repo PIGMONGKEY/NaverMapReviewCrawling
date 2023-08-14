@@ -33,9 +33,12 @@ def get_place_code(driver, search_url):
     # 검색 결과 iframe으로 시점 변경
     change_frame(driver, "searchIframe")
     try:
-        driver.execute_script(one_result_click_js)
+        try:
+            driver.execute_script(one_result_click_js)
+        except:
+            driver.execute_script(many_result_click_js)
     except:
-        driver.execute_script(many_result_click_js)
+        return False
 
     time.sleep(3)
 
