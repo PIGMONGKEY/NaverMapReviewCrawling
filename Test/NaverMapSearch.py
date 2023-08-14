@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
     # 상호명 입력 프로세스 미완성
     #############################
-    search_keyword = "의정부음악도서관"
+    search_keyword = "이디야"
     search_url = f"https://map.naver.com/v5/search/{search_keyword}/place"
     #############################
 

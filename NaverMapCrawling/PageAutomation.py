@@ -23,12 +23,15 @@ def change_frame(driver, frame_id):
 def get_place_code(driver, search_url):
     one_result_click_js = 'document.querySelector("#_pcmap_list_scroll_container > ul > li > div.CHC5F > a ' \
                           '> div").click()'
-    many_result_click_js = 'document.querySelector("#_pcmap_list_scroll_container > ul > li:nth-child(1) > ' \
-                           'div.qbGlu > div.ouxiq.icT4K > a:nth-child(1) > div").click()'
 
+    many_result_click_js = 'document.querySelector("#_pcmap_list_scroll_container > ul > li:nth-child(1) > ' \
+                           'div.qbGlu > div > a:nth-child(1) > div").click()'
+
+    # 페이지 열기
     driver.get(search_url)
     time.sleep(2)
 
+    # 검색 결과 iframe으로 시점 변경
     change_frame(driver, "searchIframe")
     try:
         driver.execute_script(one_result_click_js)
@@ -38,8 +41,8 @@ def get_place_code(driver, search_url):
     time.sleep(3)
 
     change_frame(driver, "entryIframe")
-    driver.execute_script('document.querySelector("#app-root > div > div > div > div.place_fixed_maintab > div > div'
-                          ' > div > div > a:nth-child(3) > span").click()')
+    # driver.execute_script('document.querySelector("#app-root > div > div > div > div.place_fixed_maintab > div > div'
+    #                       ' > div > div > a:nth-child(3) > span").click()')
 
     return driver.current_url.split("/")[-1].split("?")[0]
 
