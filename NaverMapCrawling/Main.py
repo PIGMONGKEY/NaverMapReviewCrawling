@@ -6,10 +6,10 @@ if __name__ == '__main__':
 
     # Chrome Driver Setting
     driver = driver_init()
-    place_name = load_csv("../CSV/경기도 의정부시_착한가격업소 현황_20230101.csv")
+    place_name = load_csv("../CSV/서울시 호텔리스트 현황 (한국어).csv")
 
     for search_keyword in place_name:
-        search_url = f"https://map.naver.com/v5/search/의정부 {search_keyword}/place"
+        search_url = f"https://map.naver.com/v5/search/서울 {search_keyword}/place"
 
         # Selenium 을 이용한 페이지 이동을 통해 장소 코드 return
         place_code = get_place_code(driver, search_url)
