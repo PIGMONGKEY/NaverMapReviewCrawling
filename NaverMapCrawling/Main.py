@@ -1,3 +1,12 @@
+# 구동 환경 : 맥북 m1 pro / pycharm / conda python=3.10
+# Installed library
+#       selenium
+#       webdriver-manager
+#       pandas
+# Chrome Version : 115.0.5790.170(공식 빌드) (arm64)
+# Chrome Driver Version : 115.0.5790.170 (arm64)
+
+
 from NaverMapCrawling.WriteReviewOnFile import *
 from NaverMapCrawling.PageAutomation import *
 from NaverMapCrawling.GetBrandNameFromCSV import *
@@ -6,9 +15,9 @@ if __name__ == '__main__':
 
     # Chrome Driver Setting
     driver = driver_init()
-    place_name = load_csv("../CSV/서울시 호텔리스트 현황 (한국어).csv")
+    place_name_list = load_csv("../CSV/서울시 호텔리스트 현황 (한국어).csv")
 
-    for search_keyword in place_name:
+    for search_keyword in place_name_list:
         search_url = f"https://map.naver.com/v5/search/서울 {search_keyword}/place"
 
         # Selenium 을 이용한 페이지 이동을 통해 장소 코드 return
