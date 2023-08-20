@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+import os
 
 
 # 검색어 명으로 파일 생성
@@ -25,3 +26,13 @@ def review_write(brand_name, driver):
             write_file(file, s.text)
 
     close_file(file)
+
+
+if __name__ == "__main__":
+    try:
+        os.mkdir("../Reviews/서울특별시/테스트파일")
+    except:
+        print("Directory is already exist")
+
+    f = open("../Reviews/서울특별시/테스트파일/test.txt", "w")
+    f.close()
