@@ -48,5 +48,5 @@ if __name__ == "__main__":
     except:
         print("Directory is already exist")
 
-    f = open("../Reviews/서울특별시/일반음식점/test.txt", "w")
+    f = open("../Reviews/서울특별시/일반음식점/test.txt", "a")
     f.close()
