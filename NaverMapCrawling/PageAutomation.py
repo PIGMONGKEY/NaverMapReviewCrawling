@@ -9,7 +9,6 @@ import os
 # 설치된 크롬 드라이버를 불러온 후 리턴
 def driver_init():
     # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver = webdriver.Chrome()
     driver.maximize_window()
     return driver
