@@ -13,12 +13,15 @@ from NaverMapCrawling.GetBrandNameFromCSV import *
 
 if __name__ == '__main__':
 
+    csv_file_path = f"/Users/pigmong0202/Downloads/서울시_공공데이터/일반음식점.csv"
+
     # Chrome Driver Setting
     driver = driver_init()
-    place_name_list = load_csv("../CSV/서울시 호텔리스트 현황 (한국어).csv")
+    # place_name_list = load_csv("../CSV/서울시 호텔리스트 현황 (한국어).csv")
+    place_name_list = load_csv(csv_file_path)
 
     for search_keyword in place_name_list:
-        search_url = f"https://map.naver.com/v5/search/서울 {search_keyword}/place"
+        search_url = f"https://map.naver.com/v5/search/서울 {search_keyword[18]}/place"
 
         # Selenium 을 이용한 페이지 이동을 통해 장소 코드 return
         place_code = get_place_code(driver, search_url)
@@ -34,6 +37,6 @@ if __name__ == '__main__':
         click_more_button(driver)
 
         # 모든 리뷰 긁어서 txt 파일로 저장
-        review_write(search_keyword, driver)
+        review_write(search_keyword[18], driver)
 
     driver.close()
