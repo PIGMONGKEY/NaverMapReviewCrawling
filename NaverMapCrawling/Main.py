@@ -1,8 +1,8 @@
 # 구동 환경 : 맥북 m1 pro / pycharm / conda python=3.10
 # Installed library
-#       selenium
-#       webdriver-manager
-#       pandas
+#       selenium : 4.11.2
+#       webdriver-manager : 4.0.0
+#       pandas : 2.0.3
 # Chrome Version : 115.0.5790.170(공식 빌드) (arm64)
 # Chrome Driver Version : 115.0.5790.170 (arm64)
 
