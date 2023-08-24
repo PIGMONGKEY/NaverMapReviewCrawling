@@ -32,7 +32,7 @@ def review_write(brand_name, driver):
 
     if count == 0:
         print("리뷰가 없거나, 장소가 없습니다.")
-        temp_file = open_file("오류장소목록")
+        temp_file = open(f"../Reviews/서울특별시/일반음식점/오류장소목록.txt", "a")
         temp_file.write(brand_name + "\n")
         close_file(temp_file)
 
