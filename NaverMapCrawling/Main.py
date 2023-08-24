@@ -21,7 +21,13 @@ if __name__ == '__main__':
     place_name_list = load_csv(csv_file_path)
 
     for search_keyword in place_name_list:
-        search_url = f"https://map.naver.com/v5/search/서울 {search_keyword[18]}/place"
+        place_name = search_keyword[18]
+        place_address = search_keyword[15]
+        try:
+            place_gu = search_keyword[15].split(" ")[1]
+        except:
+            continue
+        search_url = f"https://map.naver.com/v5/search/{place_gu} {place_name}/place"
 
         # Selenium 을 이용한 페이지 이동을 통해 장소 코드 return
         place_code = get_place_code(driver, search_url)

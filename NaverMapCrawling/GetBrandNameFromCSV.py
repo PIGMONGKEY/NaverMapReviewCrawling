@@ -18,6 +18,11 @@ def load_csv(file):
 if __name__ == "__main__":
     csv = pd.read_csv(f"/Users/pigmong0202/Downloads/서울시_공공데이터/일반음식점.csv", low_memory=False)
     datas = csv.values.tolist()
+    # print(datas)
     for data in datas:
         if data[4] == 1:
-            print(data[18])
+            print(data[15], data[18])
+            try:
+                print(data[15].split(" ")[1])
+            except:
+                print("주소 정보 없음")

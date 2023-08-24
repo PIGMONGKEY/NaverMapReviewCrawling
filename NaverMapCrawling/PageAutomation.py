@@ -28,10 +28,16 @@ def get_place_code(driver, search_url):
 
     # 페이지 열기
     driver.get(search_url)
-    time.sleep(3)
+    time.sleep(2)
 
     # 검색 결과 iframe으로 시점 변경
-    change_frame(driver, "searchIframe")
+    try:
+        change_frame(driver, "searchIframe")
+    except:
+        driver.get(search_url)
+        time.sleep(2)
+        change_frame(driver, "searchIframe")
+
     try:
         try:
             driver.execute_script(one_result_click_js)
