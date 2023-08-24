@@ -23,11 +23,15 @@ if __name__ == '__main__':
     for search_keyword in place_name_list:
         place_name = search_keyword[18]
         place_address = search_keyword[15]
+
         try:
             place_gu = search_keyword[15].split(" ")[1]
         except:
+            print(place_name, ": 주소 없음")
             continue
-        search_url = f"https://map.naver.com/v5/search/{place_gu} {place_name}/place"
+
+        print("검색어 :", place_gu, place_name)
+        search_url = f"https://map.naver.com/v5/search/{place_gu} {place_name}"
 
         # Selenium 을 이용한 페이지 이동을 통해 장소 코드 return
         place_code = get_place_code(driver, search_url)

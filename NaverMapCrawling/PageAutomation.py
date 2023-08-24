@@ -26,17 +26,17 @@ def get_place_code(driver, search_url):
     many_result_click_js = 'document.querySelector("#_pcmap_list_scroll_container > ul > li:nth-child(1) > ' \
                            'div.qbGlu > div > a:nth-child(1) > div").click()'
 
-    # 페이지 열기
-    driver.get(search_url)
-    time.sleep(2)
-
     # 검색 결과 iframe으로 시점 변경
-    try:
-        change_frame(driver, "searchIframe")
-    except:
-        driver.get(search_url)
-        time.sleep(2)
-        change_frame(driver, "searchIframe")
+    while 1:
+        try:
+            # 페이지 열기
+            driver.get(search_url)
+            time.sleep(2)
+            change_frame(driver, "searchIframe")
+            time.sleep(2)
+        except:
+            continue
+        break
 
     try:
         try:
@@ -48,7 +48,10 @@ def get_place_code(driver, search_url):
 
     time.sleep(3)
 
-    change_frame(driver, "entryIframe")
+    try:
+        change_frame(driver, "entryIframe")
+    except:
+        print("entryIframe 진입 실패")
     # driver.execute_script('document.querySelector("#app-root > div > div > div > div.place_fixed_maintab > div > div'
     #                       ' > div > div > a:nth-child(3) > span").click()')
 
