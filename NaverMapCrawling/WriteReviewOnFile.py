@@ -4,7 +4,7 @@ import os
 
 # 검색어 명으로 파일 생성
 def open_file(brand_name):
-    return open(f"../Reviews/서울특별시/호텔/{brand_name}.txt", "w")
+    return open(f"../Reviews/서울특별시/테스트파일/{brand_name}.txt", "w")
 
 
 # 리뷰를 txt 파일에 작성
