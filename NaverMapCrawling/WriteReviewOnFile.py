@@ -6,7 +6,6 @@ import os
 def open_file(brand_name):
     return open(f"../Reviews/서울특별시/테스트파일/{brand_name}.txt", "w")
 
-
 # 리뷰를 txt 파일에 작성
 def write_file(file, review):
     file.write(review + "\n\n")

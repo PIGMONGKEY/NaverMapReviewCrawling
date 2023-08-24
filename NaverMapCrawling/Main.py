@@ -13,7 +13,8 @@ from NaverMapCrawling.GetBrandNameFromCSV import *
 
 if __name__ == '__main__':
 
-    csv_file_path = f"/Users/pigmong0202/Downloads/서울시_공공데이터/일반음식점.csv"
+    # csv_file_path = f"/Users/pigmong0202/Downloads/서울시_공공데이터/일반음식점.csv"       # macOS version
+    csv_file_path = f"../CSV/일반음식점.csv"                                              # windows version
 
     # Chrome Driver Setting
     driver = driver_init()

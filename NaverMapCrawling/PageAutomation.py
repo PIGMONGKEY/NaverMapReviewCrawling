@@ -3,11 +3,14 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
+import os
 
 
 # 설치된 크롬 드라이버를 불러온 후 리턴
 def driver_init():
+    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     driver.maximize_window()
     return driver
 
@@ -77,3 +80,7 @@ def click_more_button(driver):
             time.sleep(1)
         except:
             break
+
+
+if __name__ == "__main__":
+    print(os.getcwd())

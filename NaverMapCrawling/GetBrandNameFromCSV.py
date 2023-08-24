@@ -16,7 +16,8 @@ def load_csv(file):
 
 
 if __name__ == "__main__":
-    csv = pd.read_csv(f"/Users/pigmong0202/Downloads/서울시_공공데이터/일반음식점.csv", low_memory=False)
+    # csv = pd.read_csv(f"/Users/pigmong0202/Downloads/서울시_공공데이터/일반음식점.csv", low_memory=False)      # macOS version
+    csv = pd.read_csv(f"../CSV/일반음식점.csv", encoding="cp949", low_memory=False)                           # windows version
     datas = csv.values.tolist()
     # print(datas)
     for data in datas:
