@@ -24,9 +24,14 @@ def close_file(file):
 def review_write(brand_name, driver):
     file = open_file(brand_name)
 
+    count = 0
     for s in driver.find_elements(By.CSS_SELECTOR, "span.zPfVt"):
         if s.text.__len__() >= 5:
             write_file(file, s.text)
+            count += 1
+
+    if count == 0:
+        print("리뷰가 없거나, 장소가 없습니다.")
 
     close_file(file)
 

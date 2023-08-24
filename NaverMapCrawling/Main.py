@@ -28,7 +28,7 @@ if __name__ == '__main__':
         try:
             place_gu = search_keyword[15].split(" ")[1]
         except:
-            print(place_name, ": 주소 없음")
+            print(place_name, ": 지번 주소 없음")
             continue
 
         print("검색어 :", place_gu, place_name)
