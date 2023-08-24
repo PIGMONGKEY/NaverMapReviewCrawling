@@ -4,7 +4,7 @@ import os
 
 # 검색어 명으로 파일 생성
 def open_file(brand_name):
-    return open(f"../Reviews/서울특별시/테스트파일/{brand_name}.txt", "w", encoding="UTF-8")
+    return open(f"../Reviews/서울특별시/일반음식점/{brand_name}.txt", "w", encoding="UTF-8")
 
 
 # 리뷰를 txt 파일에 작성
@@ -32,6 +32,9 @@ def review_write(brand_name, driver):
 
     if count == 0:
         print("리뷰가 없거나, 장소가 없습니다.")
+        temp_file = open_file("오류장소목록")
+        temp_file.write(brand_name + "\n")
+        close_file(temp_file)
 
     close_file(file)
 
@@ -41,9 +44,9 @@ def review_write(brand_name, driver):
 
 if __name__ == "__main__":
     try:
-        os.mkdir("../Reviews/서울특별시/테스트파일")
+        os.mkdir("../Reviews/서울특별시/일반음식점")
     except:
         print("Directory is already exist")
 
-    f = open("../Reviews/서울특별시/테스트파일/test.txt", "w")
+    f = open("../Reviews/서울특별시/일반음식점/test.txt", "w")
     f.close()
