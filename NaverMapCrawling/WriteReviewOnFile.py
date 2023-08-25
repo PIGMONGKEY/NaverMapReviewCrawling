@@ -31,8 +31,11 @@ def close_file(file):
 
 
 # 모든 리뷰를 불러와서 파일에 작성
-def review_write(brand_name, driver):
+def review_write(brand_name, place_address, driver):
     file = open_file(brand_name)
+
+    file.write(brand_name + "\n")
+    file.write(place_address + "\n\n")
 
     count = 0
     for s in driver.find_elements(By.CSS_SELECTOR, "span.zPfVt"):

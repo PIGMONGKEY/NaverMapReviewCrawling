@@ -62,5 +62,5 @@ if __name__ == '__main__':
         click_more_button(driver)
 
         # 모든 리뷰 긁어서 txt 파일로 저장
-        review_write(place_gu + " " + place_dong + " " + place_name, driver)
+        review_write(place_gu + " " + place_dong + " " + place_name, place_address, driver)
     driver.close()
