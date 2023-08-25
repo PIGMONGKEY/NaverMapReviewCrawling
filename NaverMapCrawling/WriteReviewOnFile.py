@@ -4,6 +4,16 @@ import os
 
 # 검색어 명으로 파일 생성
 def open_file(brand_name):
+    if brand_name.find("?") != -1 or brand_name.find('"') != -1 or brand_name.find("/") != -1 or brand_name.find(":") != -1 or brand_name.find("<") != -1 or brand_name.find(">") != -1 or brand_name.find("*") != -1 or brand_name.find("|"):
+        brand_name = brand_name.replace("?", "")
+        brand_name = brand_name.replace('"', "")
+        brand_name = brand_name.replace("/", "")
+        brand_name = brand_name.replace(":", "")
+        brand_name = brand_name.replace("<", "")
+        brand_name = brand_name.replace(">", "")
+        brand_name = brand_name.replace("*", "")
+        brand_name = brand_name.replace("|", "")
+
     return open(f"../Reviews/서울특별시/일반음식점/{brand_name}.txt", "w", encoding="UTF-8")
 
 
@@ -48,5 +58,11 @@ if __name__ == "__main__":
     except:
         print("Directory is already exist")
 
-    f = open("../Reviews/서울특별시/일반음식점/test.txt", "a")
+    file_name = "?abcdefg?"
+    if file_name.find("?") != -1:
+        print(file_name.find("?"))
+        file_name = file_name.replace("!", "")
+        print(file_name)
+
+    f = open("../Reviews/서울특별시/일반음식점/test().txt", "a")
     f.close()

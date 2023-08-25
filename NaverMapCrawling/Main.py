@@ -18,7 +18,6 @@ if __name__ == '__main__':
 
     # Chrome Driver Setting
     driver = driver_init()
-    # place_name_list = load_csv("../CSV/서울시 호텔리스트 현황 (한국어).csv")
     place_name_list = load_csv(csv_file_path)
 
     for search_keyword in place_name_list:
