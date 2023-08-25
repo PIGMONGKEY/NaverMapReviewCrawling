@@ -33,16 +33,23 @@ def get_place_code(driver, search_url):
 
     # 검색 결과 iframe으로 시점 변경
 
+    wait = WebDriverWait(driver, 3)
 
     # 페이지 열기
     driver.get(search_url)
-    time.sleep(2)
+
+    try:
+        # searchIframe으로 변경 가능할 때까지 대기
+        wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "searchIframe")))
+        change_frame(driver, "searchIframe")
+    except:
+        print("searchIframe 진입 실패")
+
+    # 크롬 오류로 인해 네이버지도 메인화면이 무한 로딩되는 현상 방지
     if driver.current_url.find("search") == -1:
         return -1
 
-    change_frame(driver, "searchIframe")
-    time.sleep(2)
-
+    # 클릭 javascript 실행
     try:
         try:
             driver.execute_script(one_result_click_js)
@@ -52,8 +59,11 @@ def get_place_code(driver, search_url):
         return driver.current_url.split("/")[-1].split("?")[0]
 
     time.sleep(3)
+    driver.switch_to.default_content()
 
     try:
+        # entryIfrmae으로 변경 가능할 때까지 대기
+        wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "entryIframe")))
         change_frame(driver, "entryIframe")
     except:
         print("entryIframe 진입 실패")
@@ -68,23 +78,22 @@ def move_to_review_page(driver, place_code):
     place_url = f"https://pcmap.place.naver.com/restaurant/{place_code}/review/visitor"
 
     driver.get(place_url)
-    time.sleep(3)
 
 
 # 더보기 버튼을 끝까지 누름
 def click_more_button(driver):
     more_button_css = "a.fvwqf"
 
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 2)
 
     while 1:
         try:
             # 더보기 버튼이 누를 수 있을 때까지 기다린다.
             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, more_button_css)))
+            # 더보기 버튼 찾기
             more_button = driver.find_element(By.CSS_SELECTOR, more_button_css)
+            # 더보기 버튼 클릭
             more_button.click()
-
-            time.sleep(1)
         except:
             break
 
@@ -93,11 +102,40 @@ def click_more_button(driver):
 
 
 if __name__ == "__main__":
+    one_result_click_js = 'document.querySelector("#_pcmap_list_scroll_container > ul > li > div.CHC5F > a ' \
+                          '> div").click()'
+
+    many_result_click_js = 'document.querySelector("#_pcmap_list_scroll_container > ul > li:nth-child(1) > ' \
+                           'div.qbGlu > div > a:nth-child(1) > div").click()'
+
     driver = driver_init()
-    driver.get(f"https://map.naver.com/v5/search/오보고")
+    driver.get(f"https://map.naver.com/v5/search/스시노칸도")
+
+    wait = WebDriverWait(driver, 5)
+    try:
+        wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "searchIframe")))
+        change_frame(driver, "searchIframe")
+    except:
+        print("searchIframe failed")
+
+    try:
+        try:
+            driver.execute_script(one_result_click_js)
+        except:
+            driver.execute_script(many_result_click_js)
+    except:
+        print("no javascript")
+
     time.sleep(2)
-    print(driver.current_url)
-    time.sleep(3)
-    print(driver.current_url)
-    print(driver.current_url.find("search"))
+
+    driver.switch_to.default_content()
+
+    try:
+        wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "entryIframe")))
+        change_frame(driver, "entryIframe")
+    except:
+        print("entryIframe failed")
+
+    time.sleep(20)
+
     driver.close()
