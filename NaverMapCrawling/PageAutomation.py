@@ -1,14 +1,17 @@
+import selenium.webdriver.support.wait
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 import os
 
 
 # 설치된 크롬 드라이버를 불러온 후 리턴
 def driver_init():
-    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))       # macOS
     driver = webdriver.Chrome()
     driver.maximize_window()
     return driver
@@ -72,8 +75,12 @@ def move_to_review_page(driver, place_code):
 def click_more_button(driver):
     more_button_css = "a.fvwqf"
 
+    wait = WebDriverWait(driver, 10)
+
     while 1:
         try:
+            # 더보기 버튼이 누를 수 있을 때까지 기다린다.
+            wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, more_button_css)))
             more_button = driver.find_element(By.CSS_SELECTOR, more_button_css)
             more_button.click()
 

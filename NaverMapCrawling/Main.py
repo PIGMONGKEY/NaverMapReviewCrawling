@@ -18,6 +18,8 @@ if __name__ == '__main__':
 
     # Chrome Driver Setting
     driver = driver_init()
+
+    # 장소 리스트 가져오기 shape = ['영업코드', '지번주소', '상호명']
     place_name_list = load_csv(csv_file_path)
 
     for search_keyword in place_name_list:
@@ -29,6 +31,7 @@ if __name__ == '__main__':
             place_gu = place_split[1]
             place_dong = place_split[2]
         except:
+            # 지번주소가 없는 곳은 건너뜀
             print(place_name, ": 지번 주소 없음")
             continue
 
@@ -37,8 +40,12 @@ if __name__ == '__main__':
 
         # Selenium 을 이용한 페이지 이동을 통해 장소 코드 return
         place_code = get_place_code(driver, search_url)
-        # if not place_code:
-        #     continue
+
+        # 장소코드가 숫자로 오지 않을 경우 스킵 - 없는 장소임
+        if not place_code:
+            continue
+
+        # 크롬 오류로 인해 네이버 지도 메인 화면만 계속 로딩되는 현상을 막기 위하여 예외처리
         while 1:
             if place_code != -1:
                 break
