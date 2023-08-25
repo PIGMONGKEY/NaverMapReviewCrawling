@@ -2,16 +2,20 @@ import pandas as pd
 
 
 def load_csv(file):
+    #스킵할 행 수 - 오류로 인해 프로그램이 멈출 시, 크롤링을 재개할 인덱스
+    skip_rows = 282
+
     try:
-        csv_data = pd.read_csv(file, encoding="cp949", low_memory=False, skiprows=[0, 283])
+        csv_data = pd.read_csv(file, encoding="cp949", low_memory=False, skiprows=skip_rows)
     except:
-        csv_data = pd.read_csv(file, low_memory=False)
+        csv_data = pd.read_csv(file, low_memory=False, skiprows=skip_rows)
 
     open_place_list = []
 
-    for temp in csv_data.values.tolist():
-        if temp[4] == 1:
+    for temp in csv_data.iloc[:, [4, 15, 18]].values.tolist():
+        if temp[0] == 1:
             open_place_list.append(temp)
+
     return open_place_list
 
 

@@ -21,8 +21,8 @@ if __name__ == '__main__':
     place_name_list = load_csv(csv_file_path)
 
     for search_keyword in place_name_list:
-        place_name = search_keyword[18]
-        place_address = search_keyword[15]
+        place_name = search_keyword[2]
+        place_address = search_keyword[1]
 
         try:
             place_split = place_address.split(" ")
