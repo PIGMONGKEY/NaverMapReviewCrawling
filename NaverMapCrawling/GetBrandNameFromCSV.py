@@ -3,7 +3,7 @@ import pandas as pd
 
 def load_csv(file):
     try:
-        csv_data = pd.read_csv(file, encoding="cp949", low_memory=False)
+        csv_data = pd.read_csv(file, encoding="cp949", low_memory=False, skiprows=[0, 283])
     except:
         csv_data = pd.read_csv(file, low_memory=False)
 
@@ -20,17 +20,18 @@ def load_csv(file):
 
 if __name__ == "__main__":
     # csv = pd.read_csv(f"/Users/pigmong0202/Downloads/서울시_공공데이터/일반음식점.csv", low_memory=False)      # macOS version
-    csv = pd.read_csv(f"../CSV/일반음식점.csv", encoding="cp949", low_memory=False)                           # windows version
+    csv = pd.read_csv(f"../CSV/일반음식점.csv", encoding="cp949", low_memory=False, skiprows=400000)          # windows version
+    csv = csv.iloc[:, [4, 15, 18]]
     datas = csv.values.tolist()
     # print(datas)
 
     count = 0
     for data in datas:
         count += 1
-        if data[4] == 1:
-            print(data[15], data[18])
+        if data[0] == 1:
+            print(data[1], data[2])
             try:
-                split_path = data[15].split(" ")
+                split_path = data[1].split(" ")
                 print(split_path[1], split_path[2])
             except:
                 print("주소 정보 없음")
