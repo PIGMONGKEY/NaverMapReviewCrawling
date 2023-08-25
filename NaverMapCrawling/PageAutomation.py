@@ -76,6 +76,7 @@ def click_more_button(driver):
         try:
             more_button = driver.find_element(By.CSS_SELECTOR, more_button_css)
             more_button.click()
+
             time.sleep(1)
         except:
             break

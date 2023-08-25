@@ -26,13 +26,15 @@ if __name__ == '__main__':
         place_address = search_keyword[15]
 
         try:
-            place_gu = search_keyword[15].split(" ")[1]
+            place_split = place_address.split(" ")
+            place_gu = place_split[1]
+            place_dong = place_split[2]
         except:
             print(place_name, ": 지번 주소 없음")
             continue
 
-        print("검색어 :", place_gu, place_name)
-        search_url = f"https://map.naver.com/v5/search/{place_gu} {place_name}"
+        print("검색어 :", place_gu, place_dong, place_name)
+        search_url = f"https://map.naver.com/v5/search/{place_gu} {place_dong} {place_name}"
 
         # Selenium 을 이용한 페이지 이동을 통해 장소 코드 return
         place_code = get_place_code(driver, search_url)
@@ -48,6 +50,5 @@ if __name__ == '__main__':
         click_more_button(driver)
 
         # 모든 리뷰 긁어서 txt 파일로 저장
-        review_write(place_gu + " " + place_name, driver)
-
+        review_write(place_gu + " " + place_dong + " " + place_name, driver)
     driver.close()
