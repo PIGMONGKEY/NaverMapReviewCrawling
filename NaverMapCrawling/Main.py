@@ -37,8 +37,14 @@ if __name__ == '__main__':
 
         # Selenium 을 이용한 페이지 이동을 통해 장소 코드 return
         place_code = get_place_code(driver, search_url)
-        if not place_code:
-            continue
+        # if not place_code:
+        #     continue
+        while 1:
+            if place_code != -1:
+                break
+            driver.close()
+            driver = driver_init()
+            place_code = get_place_code(driver, search_url)
 
         # 장소 코드를 통하여 장소 naver place 리뷰 페이지로 이동
         move_to_review_page(driver, place_code)

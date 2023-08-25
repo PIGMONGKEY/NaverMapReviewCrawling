@@ -29,16 +29,16 @@ def get_place_code(driver, search_url):
                            'div.qbGlu > div > a:nth-child(1) > div").click()'
 
     # 검색 결과 iframe으로 시점 변경
-    while 1:
-        try:
-            # 페이지 열기
-            driver.get(search_url)
-            time.sleep(2)
-            change_frame(driver, "searchIframe")
-            time.sleep(2)
-        except:
-            continue
-        break
+
+
+    # 페이지 열기
+    driver.get(search_url)
+    time.sleep(2)
+    if driver.current_url.find("search") == -1:
+        return -1
+
+    change_frame(driver, "searchIframe")
+    time.sleep(2)
 
     try:
         try:
@@ -86,4 +86,11 @@ def click_more_button(driver):
 
 
 if __name__ == "__main__":
-    print(os.getcwd())
+    driver = driver_init()
+    driver.get(f"https://map.naver.com/v5/search/오보고")
+    time.sleep(2)
+    print(driver.current_url)
+    time.sleep(3)
+    print(driver.current_url)
+    print(driver.current_url.find("search"))
+    driver.close()
