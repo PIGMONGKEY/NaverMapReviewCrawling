@@ -19,12 +19,13 @@ if __name__ == '__main__':
     # Chrome Driver Setting
     driver = driver_init()
 
-    # 장소 리스트 가져오기 shape = ['영업코드', '지번주소', '상호명']
+    # 장소 리스트 가져오기 shape = ['영업코드', '지번주소', '상호명', '번호']
     place_name_list = load_csv(csv_file_path)
 
     for search_keyword in place_name_list:
         place_name = search_keyword[2]
         place_address = search_keyword[1]
+        place_number = search_keyword[3]
 
         try:
             place_split = place_address.split(" ")
@@ -47,7 +48,7 @@ if __name__ == '__main__':
             place_name = place_name.replace("*", "")
             place_name = place_name.replace("|", "")
 
-        print("검색어 :", place_gu, place_dong, place_name)
+        print("검색어 :", place_gu, place_dong, place_name, "번호 :", place_number)
         search_url = f"https://map.naver.com/v5/search/{place_gu} {place_dong} {place_name}"
 
         # Selenium 을 이용한 페이지 이동을 통해 장소 코드 return
