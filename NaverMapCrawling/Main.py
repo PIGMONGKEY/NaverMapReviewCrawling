@@ -11,16 +11,9 @@ from NaverMapCrawling.WriteReviewOnFile import *
 from NaverMapCrawling.PageAutomation import *
 from NaverMapCrawling.GetBrandNameFromCSV import *
 
-if __name__ == '__main__':
-
-    # csv_file_path = f"/Users/pigmong0202/Downloads/서울시_공공데이터/일반음식점.csv"       # macOS version
-    csv_file_path = f"../CSV/일반음식점.csv"                                              # windows version
-
+def Crawling(place_name_list):
     # Chrome Driver Setting
     driver = driver_init()
-
-    # 장소 리스트 가져오기 shape = ['영업코드', '지번주소', '상호명', '번호']
-    place_name_list = load_csv(csv_file_path)
 
     for search_keyword in place_name_list:
         place_name = search_keyword[2]
@@ -38,7 +31,7 @@ if __name__ == '__main__':
 
         if place_name.find("?") != -1 or place_name.find('"') != -1 or place_name.find("/") != -1 or place_name.find(
                 ":") != -1 or place_name.find("<") != -1 or place_name.find(">") != -1 or place_name.find(
-                "*") != -1 or place_name.find("|"):
+            "*") != -1 or place_name.find("|"):
             place_name = place_name.replace("?", "")
             place_name = place_name.replace('"', "")
             place_name = place_name.replace("/", "")
@@ -77,3 +70,14 @@ if __name__ == '__main__':
         # 모든 리뷰 긁어서 txt 파일로 저장
         review_write(place_gu + " " + place_dong + " " + place_name, place_address, driver)
     driver.close()
+
+
+if __name__ == '__main__':
+
+    # csv_file_path = f"/Users/pigmong0202/Downloads/서울시_공공데이터/일반음식점.csv"       # macOS version
+    csv_file_path = f"../CSV/일반음식점.csv"                                              # windows version
+
+    # 장소 리스트 가져오기 shape = ['영업코드', '지번주소', '상호명', '번호']
+    place_name_list = load_csv(csv_file_path)
+
+    Crawling(place_name_list)
