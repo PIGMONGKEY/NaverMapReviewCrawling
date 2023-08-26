@@ -116,15 +116,25 @@ def test_crawling(driver, search_keyword):
 if __name__ == "__main__":
     class Parser():
         def __init__(self):
-            self.pool = Pool(processes=3)
+            self.pool = Pool(processes=8)
 
         def open_browser(self, site):
             driver = webdriver.Chrome()
             driver.get(site)
+            print(site, driver.current_url)
             time.sleep(3)
 
         def multi_processing(self):
-            sites = ["https://www.google.com", "https://www.naver.com", "https://www.daum.net"]
+            sites = ["https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com"]
             self.pool.map(self.open_browser, sites)
 
     parser = Parser()
