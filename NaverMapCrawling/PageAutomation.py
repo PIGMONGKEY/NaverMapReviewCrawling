@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from difflib import SequenceMatcher
 import time
 import os
 
@@ -82,6 +83,9 @@ def move_to_review_page(driver, place_code, place_name):
     driver.switch_to.default_content()
 
     title = driver.find_element(By.CSS_SELECTOR, "#_title > span.Fc1rA")
+    ratio = SequenceMatcher(None, title.text, place_name).ratio() * 100
+    if ratio < 39.0:
+        return -1
 
 
 
