@@ -35,6 +35,18 @@ if __name__ == '__main__':
             print(place_name, ": 지번 주소 없음")
             continue
 
+        if place_name.find("?") != -1 or place_name.find('"') != -1 or place_name.find("/") != -1 or place_name.find(
+                ":") != -1 or place_name.find("<") != -1 or place_name.find(">") != -1 or place_name.find(
+                "*") != -1 or place_name.find("|"):
+            place_name = place_name.replace("?", "")
+            place_name = place_name.replace('"', "")
+            place_name = place_name.replace("/", "")
+            place_name = place_name.replace(":", "")
+            place_name = place_name.replace("<", "")
+            place_name = place_name.replace(">", "")
+            place_name = place_name.replace("*", "")
+            place_name = place_name.replace("|", "")
+
         print("검색어 :", place_gu, place_dong, place_name)
         search_url = f"https://map.naver.com/v5/search/{place_gu} {place_dong} {place_name}"
 

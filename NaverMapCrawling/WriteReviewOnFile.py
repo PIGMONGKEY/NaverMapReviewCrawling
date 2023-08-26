@@ -38,7 +38,23 @@ def review_write(brand_name, place_address, driver):
     file.write(place_address + "\n\n")
 
     count = 0
-    for s in driver.find_elements(By.CSS_SELECTOR, "span.zPfVt"):
+
+    review = ""
+
+    try:
+        try:
+            review = driver.find_elements(By.CSS_SELECTOR, "span.zPfVt")
+        except:
+            for i in range(10):
+                review = driver.find_elements(By.CSS_SELECTOR, "span.zPfVt")
+    except:
+        print("span 에러가 발생했습니다.")
+        temp_file = open(f"../Reviews/서울특별시/오류장소목록.txt", "a", encoding="UTF-8")
+        temp_file.write(brand_name + "\n")
+        close_file(temp_file)
+        return
+
+    for s in review:
         if s.text.__len__() >= 5:
             write_file(file, s.text)
             count += 1
