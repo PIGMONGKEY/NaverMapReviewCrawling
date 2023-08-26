@@ -86,7 +86,7 @@ def write_error(error_list, brand_name, brand_number, brand_address):
 
     temp_file.write(brand_name + "||")
     temp_file.write(brand_address + "||")
-    temp_file.write(f"{brand_name}")
+    temp_file.write(f"{brand_number}")
 
     error_str = "\t"
     for error_code in error_list:

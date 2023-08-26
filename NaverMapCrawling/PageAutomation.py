@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from difflib import SequenceMatcher
 import time
 import os
-from WriteReviewOnFile import *
+from NaverMapCrawling.WriteReviewOnFile import *
 
 
 # 설치된 크롬 드라이버를 불러온 후 리턴
