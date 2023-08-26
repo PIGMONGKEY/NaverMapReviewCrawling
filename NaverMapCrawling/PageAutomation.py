@@ -84,9 +84,17 @@ def move_to_review_page(driver, place_code):
 def click_more_button(driver):
     more_button_css = "a.fvwqf"
 
-    wait = WebDriverWait(driver, 2)
+    wait = WebDriverWait(driver, 30)
+
+    count = 0
 
     while 1:
+        # 최대 100번까지 누름
+        if count >= 100:
+            break
+
+        count += 1
+
         try:
             # 더보기 버튼이 누를 수 있을 때까지 기다린다.
             wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, more_button_css)))
@@ -96,7 +104,6 @@ def click_more_button(driver):
             more_button.click()
         except:
             break
-
 
 ############################################## 테스트 ###################################################################
 
