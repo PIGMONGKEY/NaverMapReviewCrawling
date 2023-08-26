@@ -60,9 +60,7 @@ def Crawling(place_name_list):
             place_code = get_place_code(driver, search_url)
 
         # 장소 코드를 통하여 장소 naver place 리뷰 페이지로 이동
-        move_to_review_page(driver, place_code)
-
-        driver.switch_to.default_content()
+        move_to_review_page(driver, place_code, place_name)
 
         # 리뷰 더보기 버튼 끝까지 클릭
         click_more_button(driver)

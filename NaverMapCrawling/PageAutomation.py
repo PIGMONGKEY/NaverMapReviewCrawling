@@ -74,10 +74,15 @@ def get_place_code(driver, search_url):
 
 
 # 장소 코드를 이용해서 장소 naver place 리뷰 페이지로 이동
-def move_to_review_page(driver, place_code):
+def move_to_review_page(driver, place_code, place_name):
     place_url = f"https://pcmap.place.naver.com/restaurant/{place_code}/review/visitor"
 
     driver.get(place_url)
+
+    driver.switch_to.default_content()
+
+    title = driver.find_element(By.CSS_SELECTOR, "#_title > span.Fc1rA")
+
 
 
 # 더보기 버튼을 끝까지 누름
