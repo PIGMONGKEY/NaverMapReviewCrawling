@@ -41,7 +41,9 @@ def func3(driver, page, count):
     driver.get("https://www.daum.net")
     print(count, "finish")
 
-def test_crawling(driver, search_keyword):
+def test_crawling(search_keyword):
+    driver = webdriver.Chrome()
+
     error_list = []
     place_name = search_keyword[2]
     place_address = search_keyword[1]
@@ -56,7 +58,8 @@ def test_crawling(driver, search_keyword):
         print(place_name)
         print(" *** 지번주소 없음")
         add_error_list(NO_ADDRESS, error_list)
-        write_error(error_list, brand_name=place_name, brand_address=place_address, brand_number=place_number)
+        write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
+                    review_save_code=False)
         return
 
     if place_name.find("?") != -1 or place_name.find('"') != -1 or place_name.find("/") != -1 or place_name.find(
@@ -97,12 +100,14 @@ def test_crawling(driver, search_keyword):
     if place_code.find("%") != -1:
         print(" *** 없는 장소")
         add_error_list(PLACE_NOT_EXIST, error_list)
-        write_error(error_list, brand_name=place_name, brand_address=place_address, brand_number=place_number)
+        write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
+                    review_save_code=False)
         return
 
     # 장소 코드를 통하여 장소 naver place 리뷰 페이지로 이동
     if move_to_review_page(driver, place_code, place_name, error_list) == -1:
-        write_error(error_list, brand_name=place_name, brand_address=place_address, brand_number=place_number)
+        write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
+                    review_save_code=False)
         return
 
     # 리뷰 더보기 버튼 끝까지 클릭
@@ -110,35 +115,47 @@ def test_crawling(driver, search_keyword):
 
     # 모든 리뷰 긁어서 txt 파일로 저장
     review_write(place_gu + " " + place_dong + " " + place_name, place_address, driver, error_list)
-    write_error(error_list, brand_name=place_name, brand_address=place_address, brand_number=place_number)
+    write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
+                review_save_code=True)
 
 
 if __name__ == "__main__":
-    class Parser():
-        def __init__(self):
-            self.pool = Pool(processes=8)
+    pool = Pool(processes=8)
 
-        def open_browser(self, site):
-            driver = webdriver.Chrome()
-            driver.get(site)
-            print(site, driver.current_url)
-            time.sleep(3)
+    # csv_file_path = f"/Users/pigmong0202/Downloads/서울시_공공데이터/일반음식점.csv"       # macOS version
+    csv_file_path = f"../CSV/일반음식점.csv"  # windows version
 
-        def multi_processing(self):
-            sites = ["https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
-                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
-                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
-                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
-                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
-                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
-                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
-                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
-                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
-                     "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com"]
-            self.pool.map(self.open_browser, sites)
+    # 장소 리스트 가져오기 shape = ['영업코드', '지번주소', '상호명', '번호']
+    place_name_list = load_csv(csv_file_path)
 
-    parser = Parser()
-    parser.multi_processing()
+    pool.map(test_crawling, place_name_list)
+
+# if __name__ == "__main__":
+#     class Parser():
+#         def __init__(self):
+#             self.pool = Pool(processes=8)
+#
+#         def open_browser(self, site):
+#             driver = webdriver.Chrome()
+#             driver.get(site)
+#             print(site, driver.current_url)
+#             time.sleep(3)
+#
+#         def multi_processing(self):
+#             sites = ["https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+#                      "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+#                      "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+#                      "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+#                      "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+#                      "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+#                      "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+#                      "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+#                      "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com",
+#                      "https://www.google.com", "https://www.naver.com", "https://www.google.com", "https://www.naver.com"]
+#             self.pool.map(self.open_browser, sites)
+#
+#     parser = Parser()
+#     parser.multi_processing()
 
 
 # if __name__ == "__main__":

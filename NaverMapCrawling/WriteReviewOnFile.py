@@ -43,6 +43,7 @@ def close_file(file):
 # 모든 리뷰를 불러와서 파일에 작성
 def review_write(brand_name, place_address, driver, error_list):
     file = open_file(brand_name)
+    print("open file :", brand_name)
 
     file.write(brand_name + "\n")
     file.write(place_address + "\n\n")
@@ -78,7 +79,7 @@ def add_error_list(error_code, error_list):
     error_list.append(error_code)
 
 
-def write_error(error_list, brand_name, brand_number, brand_address):
+def write_error(error_list, brand_name, brand_number, brand_address, review_save_code):
     if error_list.__len__() < 1:
         return
 
@@ -107,8 +108,11 @@ def write_error(error_list, brand_name, brand_number, brand_address):
         else:
             error_str += " 리뷰또는장소없음 "
 
-    if error_list.count(NO_REVIEWS) == 0:
+    if review_save_code:
         error_str += " 리뷰저장됨 "
+    else:
+        ff = open_file(brand_name)
+        close_file(ff)
 
     temp_file.write(error_str + "\n")
 

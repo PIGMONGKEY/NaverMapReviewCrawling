@@ -31,7 +31,8 @@ def crawling(place_name_list):
             print(place_name)
             print(" *** 지번주소 없음")
             add_error_list(NO_ADDRESS, error_list)
-            write_error(error_list, brand_name=place_name, brand_address=place_address, brand_number=place_number)
+            write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
+                        review_save_code=False)
             continue
 
         if place_name.find("?") != -1 or place_name.find('"') != -1 or place_name.find("/") != -1 or place_name.find(
@@ -45,6 +46,7 @@ def crawling(place_name_list):
             place_name = place_name.replace(">", "")
             place_name = place_name.replace("*", "")
             place_name = place_name.replace("|", "")
+            place_name = place_name.replace("#", "")
 
         print("검색어 :", place_gu, place_dong, place_name, "번호 :", place_number)
         search_url = f"https://map.naver.com/v5/search/{place_gu} {place_dong} {place_name}"
@@ -72,12 +74,14 @@ def crawling(place_name_list):
         if place_code.find("%") != -1:
             print(" *** 없는 장소")
             add_error_list(PLACE_NOT_EXIST, error_list)
-            write_error(error_list, brand_name=place_name, brand_address=place_address, brand_number=place_number)
+            write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
+                        review_save_code=False)
             continue
 
         # 장소 코드를 통하여 장소 naver place 리뷰 페이지로 이동
         if move_to_review_page(driver, place_code, place_name, error_list) == -1:
-            write_error(error_list, brand_name=place_name, brand_address=place_address, brand_number=place_number)
+            write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
+                        review_save_code=False)
             continue
 
         # 리뷰 더보기 버튼 끝까지 클릭
@@ -85,7 +89,8 @@ def crawling(place_name_list):
 
         # 모든 리뷰 긁어서 txt 파일로 저장
         review_write(place_gu + " " + place_dong + " " + place_name, place_address, driver, error_list)
-        write_error(error_list, brand_name=place_name, brand_address=place_address, brand_number=place_number)
+        write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
+                    review_save_code=True)
     driver.close()
 
 

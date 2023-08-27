@@ -53,6 +53,8 @@ def get_place_code(driver, search_url, error_list):
     if driver.current_url.find("search") == -1:
         return -1
 
+    time.sleep(1)
+
     # 클릭 javascript 실행
     try:
         try:
@@ -62,8 +64,8 @@ def get_place_code(driver, search_url, error_list):
     except:
         return driver.current_url.split("/")[-1].split("?")[0]
 
-    time.sleep(3)
     driver.switch_to.default_content()
+    time.sleep(3)
 
     try:
         # entryIfrmae으로 변경 가능할 때까지 대기
