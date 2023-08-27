@@ -119,6 +119,11 @@ def test_crawling(search_keyword):
                 review_save_code=True)
 
 
+def test_number_counting(number):
+    print(number)
+    time.sleep(2)
+
+
 if __name__ == "__main__":
     pool = Pool(processes=8)
 
