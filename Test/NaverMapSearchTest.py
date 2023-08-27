@@ -19,7 +19,7 @@ if __name__ == '__main__':
         search_url = f"https://map.naver.com/v5/search/의정부 {search_keyword}/place"
 
         # Selenium 을 이용한 페이지 이동을 통해 장소 코드 return
-        place_code = get_place_code(driver, search_url)
+        place_code = get_place_code(driver, search_url, )
         if not place_code:
             continue
 
