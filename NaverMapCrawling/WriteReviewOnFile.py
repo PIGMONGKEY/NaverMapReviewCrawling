@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-import os
 
 
 NO_ADDRESS = 10
@@ -109,7 +108,8 @@ def write_error(error_list, brand_name, brand_number, brand_address, review_save
             error_str += " 리뷰또는장소없음 "
 
     if review_save_code:
-        error_str += " 리뷰저장됨 "
+        if error_list.count(WRONG_PLACE) != 0:
+            error_str += " 리뷰저장됨 "
     else:
         ff = open_file(brand_name)
         close_file(ff)
