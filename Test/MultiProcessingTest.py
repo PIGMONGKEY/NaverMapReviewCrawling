@@ -95,7 +95,7 @@ def test_crawling(search_keyword):
         driver.close()
         driver = driver_init()
         place_code = get_place_code(driver, search_url, error_list)
-    print(place_name, driver.current_url)
+
     # 장소코드가 숫자로 오지 않을 경우 스킵 - 없는 장소임
     if place_code.find("%") != -1:
         print(" *** 없는 장소")
@@ -117,6 +117,8 @@ def test_crawling(search_keyword):
     review_write(place_gu + " " + place_dong + " " + place_name, place_address, driver, error_list)
     write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
                 review_save_code=True)
+
+    driver.close()
 
 
 def test_number_counting(number):

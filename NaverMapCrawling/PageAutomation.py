@@ -40,6 +40,10 @@ def get_place_code(driver, search_url, error_list):
     # 페이지 열기
     driver.get(search_url)
 
+    # 크롬 오류로 인해 네이버지도 메인화면이 무한 로딩되는 현상 방지
+    if driver.current_url.find("search") == -1:
+        return -1
+
     try:
         # searchIframe으로 변경 가능할 때까지 대기
         wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "searchIframe")))
@@ -47,11 +51,6 @@ def get_place_code(driver, search_url, error_list):
     except:
         print(" *** searchIframe 진입 실패")
         add_error_list(FAIL_SEARCH_IFRAME, error_list)
-
-
-    # 크롬 오류로 인해 네이버지도 메인화면이 무한 로딩되는 현상 방지
-    if driver.current_url.find("search") == -1:
-        return -1
 
     time.sleep(1)
 
@@ -74,8 +73,6 @@ def get_place_code(driver, search_url, error_list):
     except:
         print(" *** entryIframe 진입 실패")
         add_error_list(FAIL_ENTRY_IFRAME, error_list)
-    # driver.execute_script('document.querySelector("#app-root > div > div > div > div.place_fixed_maintab > div > div'
-    #                       ' > div > div > a:nth-child(3) > span").click()')
 
     return driver.current_url.split("/")[-1].split("?")[0]
 
@@ -98,7 +95,7 @@ def move_to_review_page(driver, place_code, place_name, error_list):
             return -1
     except:
         print(" *** 없는장소")
-        add_error_list(PLACE_NOT_EXIST, error_list)
+        add_error_list(NAVER_PLACE_NOT_LOADED, error_list)
         return -1
 
 

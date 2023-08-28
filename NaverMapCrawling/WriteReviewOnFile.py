@@ -60,7 +60,7 @@ def review_write(brand_name, place_address, driver, error_list):
     except:
         print("span 에러가 발생했습니다. - 리뷰항목을 가져오지 못함")
         add_error_list(FAIL_SPAN, error_list)
-        return
+        return False
 
     for s in review:
         if s.text.__len__() >= 5:
@@ -70,8 +70,11 @@ def review_write(brand_name, place_address, driver, error_list):
     if count == 0:
         print("리뷰가 없거나, 장소가 없습니다.")
         add_error_list(NO_REVIEWS, error_list)
+        return False
 
     close_file(file)
+
+    return True
 
 
 def add_error_list(error_code, error_list):
@@ -79,7 +82,7 @@ def add_error_list(error_code, error_list):
 
 
 def write_error(error_list, brand_name, brand_number, brand_address, review_save_code):
-    if error_list.__len__() < 1:
+    if review_save_code:
         return
 
     temp_file = open(f"../Reviews/서울특별시/오류장소목록.txt", "a", encoding="UTF-8")
@@ -90,31 +93,27 @@ def write_error(error_list, brand_name, brand_number, brand_address, review_save
 
     error_str = "\t"
     for error_code in error_list:
-        if error_code == NO_ADDRESS:
+        if error_code == NO_ADDRESS:    #return
             error_str += " 지번주소없음 "
-        elif error_code == PLACE_NOT_EXIST:
+        elif error_code == PLACE_NOT_EXIST: #return
             error_str += " 장소없음 "
         elif error_code == FAIL_SEARCH_IFRAME:
             error_str += " searchIframe "
         elif error_code == FAIL_ENTRY_IFRAME:
             error_str += " entryIframe "
-        elif error_code == WRONG_PLACE:
+        elif error_code == WRONG_PLACE: #return
             error_str += " 다른장소 "
-        elif error_code == FAIL_SPAN:
-            error_str += " span "
-        elif error_code == NAVER_PLACE_NOT_LOADED:
+        elif error_code == NAVER_PLACE_NOT_LOADED:  #return
             error_str += " 네이버플레이스로딩오류 "
-        else:
+        elif error_code == FAIL_SPAN:   #return
+            error_str += " span "
+        else:   #NO_REVIEWS
             error_str += " 리뷰또는장소없음 "
 
-    if review_save_code:
-        if error_list.count(WRONG_PLACE) != 0:
-            error_str += " 리뷰저장됨 "
-    else:
-        ff = open_file(brand_name)
-        close_file(ff)
-
     temp_file.write(error_str + "\n")
+
+    ff = open_file(brand_name)
+    close_file(ff)
 
     close_file(temp_file)
 
