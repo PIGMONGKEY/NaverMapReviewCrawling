@@ -1,10 +1,13 @@
 from pathos.multiprocessing import ProcessPool as Pool
+from selenium.webdriver import DesiredCapabilities
+
 from NaverMapCrawling.GetBrandNameFromCSV import *
 from NaverMapCrawling.PageAutomation import *
 from NaverMapCrawling.WriteReviewOnFile import *
 
 
 def crawling_multiprocessing(search_keyword):
+
     driver = webdriver.Chrome()
 
     error_list = []
