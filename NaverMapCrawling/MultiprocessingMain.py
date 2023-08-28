@@ -1,4 +1,5 @@
 from pathos.multiprocessing import ProcessPool as Pool
+# from multiprocessing import Pool
 from selenium.webdriver import DesiredCapabilities
 
 from NaverMapCrawling.GetBrandNameFromCSV import *
@@ -8,7 +9,8 @@ from NaverMapCrawling.WriteReviewOnFile import *
 
 def crawling_multiprocessing(search_keyword):
 
-    driver = webdriver.Chrome()
+    # driver = webdriver.Chrome()   # windows
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))       # macOS
 
     error_list = []
     temp_error_list = []
@@ -87,15 +89,12 @@ def crawling_multiprocessing(search_keyword):
     driver.close()
 
 
-
-
 if __name__ == "__main__":
-    pool = Pool(processes=8)
-
-    # csv_file_path = f"/Users/pigmong0202/Downloads/서울시_공공데이터/일반음식점.csv"       # macOS version
-    csv_file_path = f"../CSV/일반음식점.csv"  # windows version
+    csv_file_path = f"/Users/pigmong0202/PycharmProjects/NaverMapReviewCrawling/CSV/서울시_공공데이터/일반음식점.csv"       # macOS version
+    # csv_file_path = f"../CSV/일반음식점.csv"  # windows version
 
     # 장소 리스트 가져오기 shape = ['영업코드', '지번주소', '상호명', '번호']
     place_name_list = load_csv(csv_file_path)
 
-    pool.map(crawling_multiprocessing, place_name_list)
+    with Pool() as pool:
+        pool.map(crawling_multiprocessing, place_name_list)
