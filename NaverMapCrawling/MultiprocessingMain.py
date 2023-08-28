@@ -11,6 +11,7 @@ def crawling_multiprocessing(search_keyword):
     driver = webdriver.Chrome()
 
     error_list = []
+    temp_error_list = []
     place_name = search_keyword[2]
     place_address = search_keyword[1]
     place_number = search_keyword[3]
@@ -43,7 +44,6 @@ def crawling_multiprocessing(search_keyword):
     print("검색어 :", place_gu, place_dong, place_name, "번호 :", place_number)
     search_url = f"https://map.naver.com/v5/search/{place_gu} {place_dong} {place_name}"
 
-    temp_error_list = []
     for temp in error_list:
         temp_error_list.append(temp)
     # Selenium 을 이용한 페이지 이동을 통해 장소 코드 return
@@ -85,6 +85,8 @@ def crawling_multiprocessing(search_keyword):
                 review_save_code=True)
 
     driver.close()
+
+
 
 
 if __name__ == "__main__":
