@@ -103,7 +103,7 @@ def move_to_review_page(driver, place_code, place_name, error_list):
 def click_more_button(driver):
     more_button_css = "a.fvwqf"
 
-    wait = WebDriverWait(driver, 30)
+    wait = WebDriverWait(driver, 10)
 
     count = 0
 
