@@ -1,4 +1,5 @@
-from pathos.multiprocessing import ProcessPool as Pool
+from multiprocessing import Pool as Pool
+# from pathos.multiprocessing import ProcessPool as Pool
 from selenium.webdriver import DesiredCapabilities
 
 from NaverMapCrawling.GetBrandNameFromCSV import *
@@ -84,8 +85,8 @@ def crawling_multiprocessing(search_keyword):
     write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
                 review_save_code=True)
 
-    driver.close()
-
+    # driver.close()
+    driver.quit()
 
 if __name__ == "__main__":
     pool = Pool(processes=8)
