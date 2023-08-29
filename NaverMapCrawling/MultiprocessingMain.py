@@ -27,6 +27,8 @@ def crawling_multiprocessing(search_keyword):
         add_error_list(NO_ADDRESS, error_list)
         write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
                     review_save_code=False)
+
+        driver.quit()
         return
 
     if place_name.find("?") != -1 or place_name.find('"') != -1 or place_name.find("/") != -1 or place_name.find(
@@ -69,12 +71,14 @@ def crawling_multiprocessing(search_keyword):
         add_error_list(PLACE_NOT_EXIST, error_list)
         write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
                     review_save_code=False)
+        driver.quit()
         return
 
     # 장소 코드를 통하여 장소 naver place 리뷰 페이지로 이동
     if move_to_review_page(driver, place_code, place_name, error_list) == -1:
         write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
                     review_save_code=False)
+        driver.quit()
         return
 
     # 리뷰 더보기 버튼 끝까지 클릭
