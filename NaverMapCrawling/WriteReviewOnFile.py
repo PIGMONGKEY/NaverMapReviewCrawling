@@ -81,21 +81,31 @@ def add_error_list(error_code, error_list):
     error_list.append(error_code)
 
 
-def write_error(error_list, brand_name, brand_number, brand_address, review_save_code):
+def write_error(error_list, brand_name="", brand_number="", brand_address="", review_save_code=None):
     if review_save_code:
         return
 
     temp_file = open(f"../Reviews/서울특별시/오류장소목록.txt", "a", encoding="UTF-8")
 
-    temp_file.write(brand_name + "||")
-    temp_file.write(brand_address + "||")
+    if error_list[0] == NO_ADDRESS:  # return
+        temp_file.write("{brand_name}||")
+        temp_file.write("지번주소 없음" + "||")
+        temp_file.write("{brand_number}||")
+        temp_file.write("\t 지번주소 없음 \n")
+        ff = open_file(brand_name)
+        close_file(ff)
+
+        close_file(temp_file)
+
+        return
+
+    temp_file.write(f"{brand_name}||")
+    temp_file.write(f"{brand_address}||")
     temp_file.write(f"{brand_number}")
 
     error_str = "\t"
     for error_code in error_list:
-        if error_code == NO_ADDRESS:    #return
-            error_str += " 지번주소없음 "
-        elif error_code == PLACE_NOT_EXIST: #return
+        if error_code == PLACE_NOT_EXIST: #return
             error_str += " 장소없음 "
         elif error_code == FAIL_SEARCH_IFRAME:
             error_str += " searchIframe "
