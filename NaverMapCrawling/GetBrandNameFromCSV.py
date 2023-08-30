@@ -46,17 +46,25 @@ if __name__ == "__main__":
     list = load_csv(f"../CSV/일반음식점.csv")
     cut_1 = []
     cut_2 = []
+    cut_3 = []
+    cut_4 = []
+    cut_5 = []
+    cut_6 = []
+    cut_7 = []
+    cut_8 = []
+    cut_list = [cut_1, cut_2, cut_3, cut_4, cut_5, cut_6, cut_7, cut_8]
     count = 0
+    list_num = 0
 
     for data in list:
         if data[0] == 1:
+            if count >= (list.__len__() / 8):
+                if list_num < 8:
+                    count = 0
+                    list_num += 1
             count += 1
-            if count <= (list.__len__() / 2):
-                cut_1.append(data)
-            else:
-                cut_2.append(data)
+            cut_list[list_num].append(data)
 
-    print(cut_1[cut_1.__len__() - 1])
-    print(cut_2[0])
-    print(cut_2[cut_2.__len__() - 1])
+    for temp in cut_list:
+        print(temp)
 
