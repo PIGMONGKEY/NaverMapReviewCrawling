@@ -117,4 +117,4 @@ if __name__ == "__main__":
             count += 1
             search_keywords_list[list_num].append(data)
 
-    pool.map(crawling_multiprocessing, search_keywords_list)
+    pool.imap(crawling_multiprocessing, search_keywords_list)
