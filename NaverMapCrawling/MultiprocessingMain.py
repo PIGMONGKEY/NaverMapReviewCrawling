@@ -1,6 +1,5 @@
-from multiprocessing import Pool as Pool
-# from pathos.multiprocessing import ProcessPool as Pool
-from selenium.webdriver import DesiredCapabilities
+# from multiprocessing import Pool as Pool
+from pathos.multiprocessing import ProcessPool as Pool
 
 from NaverMapCrawling.GetBrandNameFromCSV import *
 from NaverMapCrawling.PageAutomation import *
@@ -89,7 +88,6 @@ def crawling_multiprocessing(search_keywords):
 
 
 if __name__ == "__main__":
-    pool = Pool(processes=8)
     cut_1 = []
     cut_2 = []
     cut_3 = []
@@ -117,4 +115,5 @@ if __name__ == "__main__":
             count += 1
             search_keywords_list[list_num].append(data)
 
-    pool.imap(crawling_multiprocessing, search_keywords_list)
+    pool = Pool(processes=8)
+    pool.map(crawling_multiprocessing, search_keywords_list)

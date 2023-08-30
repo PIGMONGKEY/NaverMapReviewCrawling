@@ -23,7 +23,7 @@ def open_file(brand_name, brand_number):
         brand_name = brand_name.replace("*", "")
         brand_name = brand_name.replace("|", "")
 
-    return open(f"../Reviews/서울특별시/일반음식점/{brand_name}.txt", "w", encoding="UTF-8")
+    return open(f"../Reviews/서울특별시/일반음식점/{brand_number}_{brand_name}.txt", "w", encoding="UTF-8")
 
 
 # 리뷰를 txt 파일에 작성
