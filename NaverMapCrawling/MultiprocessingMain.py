@@ -23,8 +23,7 @@ def crawling_multiprocessing(search_keywords):
             place_dong = place_split[2]
         except:
             # 지번주소가 없는 곳은 건너뜀
-            print(place_name)
-            print(" *** 지번주소 없음")
+            print(f"{place_name} *** 지번주소 없음 - 종료")
             add_error_list(NO_ADDRESS, error_list)
             write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
                         review_save_code=False)
@@ -42,7 +41,6 @@ def crawling_multiprocessing(search_keywords):
             place_name = place_name.replace("*", "")
             place_name = place_name.replace("|", "")
 
-        print("검색어 :", place_gu, place_dong, place_name, "번호 :", place_number)
         search_url = f"https://map.naver.com/v5/search/{place_gu} {place_dong} {place_name}"
 
         temp_error_list = []
@@ -66,7 +64,7 @@ def crawling_multiprocessing(search_keywords):
 
         # 장소코드가 숫자로 오지 않을 경우 스킵 - 없는 장소임
         if place_code.find("%") != -1:
-            print(" *** 없는 장소")
+            print(f"{place_name} *** 없는 장소 - 종료")
             add_error_list(PLACE_NOT_EXIST, error_list)
             write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
                         review_save_code=False)

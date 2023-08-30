@@ -57,7 +57,7 @@ def review_write(brand_name, brand_number, place_address, driver, error_list):
             for i in range(10):
                 review = driver.find_elements(By.CSS_SELECTOR, "span.zPfVt")
     except:
-        print("span 에러가 발생했습니다. - 리뷰항목을 가져오지 못함")
+        print(f"{brand_name} span 에러가 발생했습니다. - 리뷰항목을 가져오지 못함 - 종료")
         add_error_list(FAIL_SPAN, error_list)
         return False
 
@@ -67,11 +67,13 @@ def review_write(brand_name, brand_number, place_address, driver, error_list):
             count += 1
 
     if count == 0:
-        print("리뷰가 없거나, 장소가 없습니다.")
+        print(f"{brand_name} 리뷰가 없거나, 장소가 없습니다. - 종료")
         add_error_list(NO_REVIEWS, error_list)
         return False
 
     close_file(file)
+
+    print(f"{brand_name} - 성공")
 
     return True
 
@@ -80,18 +82,19 @@ def add_error_list(error_code, error_list):
     error_list.append(error_code)
 
 
-def write_error(error_list, brand_name="", brand_number="", brand_address="", review_save_code=None):
+def write_error(error_list, brand_name, brand_number, brand_address, review_save_code):
     if review_save_code:
         return
 
     temp_file = open(f"../Reviews/서울특별시/오류장소목록.txt", "a", encoding="UTF-8")
 
     if error_list[0] == NO_ADDRESS:  # return
-        temp_file.write("{brand_name}||")
+        temp_file.write(f"{brand_name}||")
         temp_file.write("지번주소 없음" + "||")
-        temp_file.write("{brand_number}||")
+        temp_file.write(f"{brand_number}||")
         temp_file.write("\t 지번주소 없음 \n")
-        ff = open_file(brand_name, None)
+
+        ff = open_file(brand_name, brand_number)
         close_file(ff)
 
         close_file(temp_file)
@@ -121,7 +124,7 @@ def write_error(error_list, brand_name="", brand_number="", brand_address="", re
 
     temp_file.write(error_str + "\n")
 
-    ff = open_file(brand_name, None)
+    ff = open_file(brand_name, brand_number)
     close_file(ff)
 
     close_file(temp_file)

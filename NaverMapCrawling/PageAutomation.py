@@ -49,7 +49,7 @@ def get_place_code(driver, search_url, error_list):
         wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "searchIframe")))
         change_frame(driver, "searchIframe")
     except:
-        print(" *** searchIframe 진입 실패")
+        # searchIframe 진입 실패
         add_error_list(FAIL_SEARCH_IFRAME, error_list)
 
     time.sleep(1)
@@ -71,7 +71,7 @@ def get_place_code(driver, search_url, error_list):
         wait.until(EC.frame_to_be_available_and_switch_to_it((By.ID, "entryIframe")))
         change_frame(driver, "entryIframe")
     except:
-        print(" *** entryIframe 진입 실패")
+        # entryIframe 진입 실패
         add_error_list(FAIL_ENTRY_IFRAME, error_list)
 
     return driver.current_url.split("/")[-1].split("?")[0]
@@ -90,11 +90,11 @@ def move_to_review_page(driver, place_code, place_name, error_list):
         title = driver.find_element(By.CSS_SELECTOR, "#_title > span.Fc1rA")
         ratio = SequenceMatcher(None, title.text, place_name).ratio() * 100
         if ratio < 39.0:
-            print(" *** 다른장소-일치율 :", ratio)
+            print(f"{place_name} *** 다른장소-일치율 : {ratio} - 종료")
             add_error_list(WRONG_PLACE, error_list)
             return -1
     except:
-        print(" *** 없는장소")
+        print(f"{place_name} *** 없는장소 - 종료")
         add_error_list(NAVER_PLACE_NOT_LOADED, error_list)
         return -1
 
