@@ -82,7 +82,7 @@ def crawling_multiprocessing(search_keywords):
         click_more_button(driver)
 
         # 모든 리뷰 긁어서 txt 파일로 저장
-        review_write(place_gu + " " + place_dong + " " + place_name, place_address, driver, error_list)
+        review_write(place_gu + " " + place_dong + " " + place_name, place_number, place_address, driver, error_list)
         write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
                     review_save_code=True)
 

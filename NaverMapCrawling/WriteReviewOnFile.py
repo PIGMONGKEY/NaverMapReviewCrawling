@@ -12,7 +12,7 @@ NAVER_PLACE_NOT_LOADED = 80
 
 
 # 검색어 명으로 파일 생성
-def open_file(brand_name):
+def open_file(brand_name, brand_number):
     if brand_name.find("?") != -1 or brand_name.find('"') != -1 or brand_name.find("/") != -1 or brand_name.find(":") != -1 or brand_name.find("<") != -1 or brand_name.find(">") != -1 or brand_name.find("*") != -1 or brand_name.find("|"):
         brand_name = brand_name.replace("?", "")
         brand_name = brand_name.replace('"', "")
@@ -40,9 +40,8 @@ def close_file(file):
 
 
 # 모든 리뷰를 불러와서 파일에 작성
-def review_write(brand_name, place_address, driver, error_list):
-    file = open_file(brand_name)
-    print("open file :", brand_name)
+def review_write(brand_name, brand_number, place_address, driver, error_list):
+    file = open_file(brand_name, brand_number)
 
     file.write(brand_name + "\n")
     file.write(place_address + "\n\n")
@@ -92,7 +91,7 @@ def write_error(error_list, brand_name="", brand_number="", brand_address="", re
         temp_file.write("지번주소 없음" + "||")
         temp_file.write("{brand_number}||")
         temp_file.write("\t 지번주소 없음 \n")
-        ff = open_file(brand_name)
+        ff = open_file(brand_name, None)
         close_file(ff)
 
         close_file(temp_file)
@@ -122,7 +121,7 @@ def write_error(error_list, brand_name="", brand_number="", brand_address="", re
 
     temp_file.write(error_str + "\n")
 
-    ff = open_file(brand_name)
+    ff = open_file(brand_name, None)
     close_file(ff)
 
     close_file(temp_file)
