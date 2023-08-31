@@ -1,4 +1,6 @@
 # from multiprocessing import Pool as Pool
+import time
+
 from pathos.multiprocessing import ProcessPool as Pool
 
 from NaverMapCrawling.GetBrandNameFromCSV import *
@@ -7,14 +9,20 @@ from NaverMapCrawling.WriteReviewOnFile import *
 
 
 def crawling_multiprocessing(search_keywords):
-
+    start_point_place_name_list = [1927, 23285, 73910, 152137, 222387, 306221, 389964, 474572]
+    start_code = False
     driver = webdriver.Chrome()
 
     for search_keyword in search_keywords:
+
+        place_number = search_keyword[3]
+        if not start_code:
+            if start_point_place_name_list.count(place_number) > 0:
+                start_code = True
+
         error_list = []
         place_name = search_keyword[2]
         place_address = search_keyword[1]
-        place_number = search_keyword[3]
 
         try:
             place_split = place_address.split(" ")
@@ -83,7 +91,6 @@ def crawling_multiprocessing(search_keywords):
         write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
                     review_save_code=True)
 
-    # driver.close()
     driver.quit()
 
 
