@@ -62,9 +62,19 @@ def review_write(brand_name, brand_number, place_address, driver, error_list):
         return False
 
     for s in review:
-        if s.text.__len__() >= 5:
-            write_file(file, s.text)
-            count += 1
+        try:
+            # 리뷰내용 더보기 버튼 클릭
+            s.click()
+        except:
+            pass
+        try:
+            length = s.text.__len__()
+            if length >= 5:
+                write_file(file, s.text)
+                count += 1
+        except:
+            # 이상한 문자 포함되어 있을 경우 스킵
+            continue
 
     if count == 0:
         print(f"{brand_name} 리뷰가 없거나, 장소가 없습니다. - 종료")

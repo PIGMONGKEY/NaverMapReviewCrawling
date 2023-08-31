@@ -193,7 +193,7 @@ def temp_test_function(search_keyword):
     click_more_button(driver)
 
     # 모든 리뷰 긁어서 txt 파일로 저장
-    review_write(place_gu + " " + place_dong + " " + place_name, place_address, driver, error_list)
+    review_write(place_gu + " " + place_dong + " " + place_name, place_number, place_address, driver, error_list)
     write_error(error_list, brand_name=place_name, brand_number=place_number, brand_address=place_address,
                 review_save_code=True)
 
@@ -211,7 +211,7 @@ if __name__ == "__main__":
     # 장소 리스트 가져오기 shape = ['영업코드', '지번주소', '상호명', '번호']
     place_name_list = load_csv(csv_file_path)
     for place_info in place_name_list:
-        if place_info[2] == "슬로우파머스":
+        if place_info[2] == "청담로바":
             temp_test_function(place_info)
             break
 

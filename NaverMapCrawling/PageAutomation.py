@@ -15,7 +15,6 @@ from NaverMapCrawling.WriteReviewOnFile import *
 def driver_init():
     # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))       # macOS
     driver = webdriver.Chrome()
-    driver.maximize_window()
     return driver
 
 
