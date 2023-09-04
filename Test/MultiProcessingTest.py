@@ -128,6 +128,9 @@ def temp_test_function(search_keyword):
     place_address = search_keyword[1]
     place_number = search_keyword[3]
 
+    print(place_name)
+    place_name = "N/A"
+
     try:
         place_split = place_address.split(" ")
         place_gu = place_split[1]
@@ -211,7 +214,8 @@ if __name__ == "__main__":
     # 장소 리스트 가져오기 shape = ['영업코드', '지번주소', '상호명', '번호']
     place_name_list = load_csv(csv_file_path)
     for place_info in place_name_list:
-        if place_info[2] == "청담로바":
+        print(place_info[3])
+        if place_info[3] == 493574:
             temp_test_function(place_info)
             break
 

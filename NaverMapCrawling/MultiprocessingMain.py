@@ -9,7 +9,7 @@ from NaverMapCrawling.WriteReviewOnFile import *
 
 
 def crawling_multiprocessing(search_keywords):
-    start_point_place_name_list = [1927, 23285, 73910, 152137, 222387, 306221, 389964, 474572]
+    start_point_place_name_list = [493577]
     start_code = False
     driver = webdriver.Chrome()
 
@@ -19,6 +19,8 @@ def crawling_multiprocessing(search_keywords):
         if not start_code:
             if start_point_place_name_list.count(place_number) > 0:
                 start_code = True
+            else:
+                continue
 
         error_list = []
         place_name = search_keyword[2]
@@ -122,5 +124,7 @@ if __name__ == "__main__":
             count += 1
             search_keywords_list[list_num].append(data)
 
-    pool = Pool(processes=8)
-    pool.map(crawling_multiprocessing, search_keywords_list)
+    # pool = Pool(processes=8)
+    # pool.map(crawling_multiprocessing, search_keywords_list)
+
+    crawling_multiprocessing(search_keywords_list[7])
